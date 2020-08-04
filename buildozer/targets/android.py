@@ -854,6 +854,24 @@ class TargetAndroid(Target):
             cmd.append("--service")
             cmd.append(service)
 
+        # support for resources 
+        resources = self.buildozer.config.getlist('app', 'android.resources', [])
+        for resource in resources:
+            cmd.append("--resource")
+            cmd.append(join(self.buildozer.root_dir, resource))
+
+        # support for assets 
+        assets = self.buildozer.config.getlist('app', 'android.assets', [])
+        for asset in assets:
+            cmd.append("--asset")
+            cmd.append(join(self.buildozer.root_dir, asset))
+
+        # support for native services
+        native_services = self.buildozer.config.getlist('app', 'android.native_services', [])
+        for service in native_services:
+            cmd.append("--native-service")
+            cmd.append(service)
+
         # support for copy-libs
         if self.buildozer.config.getbooldefault('app', 'android.copy_libs', True):
             cmd.append("--copy-libs")
